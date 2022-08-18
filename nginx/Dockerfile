@@ -1,9 +1,10 @@
-FROM nginx:1.22.0-alpine
+FROM nginx:1.20.2-alpine
 
 RUN rm /etc/nginx/conf.d/default.conf
 COPY nginx.conf /etc/nginx/conf.d
 
-RUN mkdir /usr/src/app -p && touch /usr/src/app/index.js
+RUN mkdir /var/www/html -p && touch /var/www/html/index.js
 
-ENTRYPOINT [ "/docker-entrypoint.sh" ]
-CMD [ "nginx", "-g", "daemon off;" ]
+EXPOSE 80
+
+ENTRYPOINT [ "nginx", "-g", "daemon off;" ]

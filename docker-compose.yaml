@@ -11,6 +11,7 @@ services:
       - node-network
     volumes: 
       - ./node:/usr/src/app
+      - /usr/src/app/node_modules
     tty: true
     ports: 
       - "3000:3000"
@@ -25,6 +26,7 @@ services:
     tty: true
     volumes: 
       - ./mysql:/var/lib/mysql
+      - ./db:/docker-entrypoint-initdb.d
     environment: 
       - MYSQL_DATABASE=nodedb
       - MYSQL_ROOT_PASSWORD=root
@@ -40,6 +42,8 @@ services:
       - node-network
     ports: 
       - "8080:80"
+    depends_on:
+      - app
   
 networks:
   node-network:
